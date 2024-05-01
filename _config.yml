@@ -117,7 +117,7 @@ author:
   location         : "경기도 화성시"
   email            :
   links:
-    - label: "Email"
+    - label: "이메일"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:chris82953@gmail.com"
     - label: "Website"
