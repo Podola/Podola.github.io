@@ -21,13 +21,42 @@ last_modified_at: 2024-05-01
 
 c++은 메모리를 직접 관리하여 최적화가 가능하나 메모리 누수 등 유지보수가 까다롭다.
 
-언리얼은 후발 언어들의 기능을 포함한 언리얼 c++을 만들었고, 이 기능들이 지원되는 클래스가 **언리얼 오브젝트 클래스**이다.
+이러한 필요성에 의해 언리얼은 후발 언어의 기능들을 포함한 언리얼 c++을 만들었다.
+
+ 이 기능들을 지원하는 클래스가 **언리얼 오브젝트 클래스**이다.
+
+### 🔸언리얼 오브젝트 클래스
+
+None 부모 클래스 > Public > "SUnrealObjectClass" 로 생성한 언리얼 오브젝트 클래스이다.
+
+```c++
+// SUnrealObjectClass.h
+
+#include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "SUnrealObjectClass.generated.h"
+
+UCLASS()
+class STUDYPROJECT_API USUnrealObjectClass : public UObject
+{
+    GENERATED_BODY()
+}
+```
+
+```c++
+// SUnrealObjectClass.cpp
+#include "SUnrealObjectClass.h"
+```
+
+{: .notice--warning}
+
+접두사 S는 프로젝트명 StudyProject에서 가져옴.
 
 
 
 ## 2️⃣ 언리얼 헤더 툴
 
-### 🔸모델이란
+### 🔸GENERATED_BODY()
 
 원하는 엔티티를 만들려면, 엔티티에 컴포넌트를 추가하고 프로퍼티를 수정해야 한다.
 
@@ -88,6 +117,6 @@ c++은 메모리를 직접 관리하여 최적화가 가능하나 메모리 누�
 <br>
 
     이 글은 코드조선님의 인프런 강의 Go Hard to Unreal를 참고했습니다.
-    잘못된 내용이 있을 경우 댓글이나 메일로 지적바랍니다!😄
+    잘못된 내용이 있을 경우 메일로 지적바랍니다!😄
 
 [맨 위로 이동하기](#){: .btn .btn--primary }{: .align-right}
