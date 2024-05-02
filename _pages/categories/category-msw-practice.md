@@ -1,7 +1,7 @@
 ---
-title: "언리얼5 게임 제작"
+title: "메이플스토리 월드 실습"
 layout: archive
-permalink: categories/unreal-game
+permalink: categories/MSW실습
 author_profile: true
 sidebar_main: true
 ---
@@ -10,5 +10,5 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.UE5 %}
+{% assign posts = site.categories['MSW실습'] %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}

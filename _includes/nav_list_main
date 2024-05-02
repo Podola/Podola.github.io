@@ -1,0 +1,54 @@
+{% assign sum = site.posts | size %}
+
+<nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label }}</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+            📂 <span>전체 글 수</style> <span>{{sum}}</style> <span>개</style> 
+      </li>
+      <li>
+        <span class="nav__sub-title" style="color: #ECB601;">C / C++</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "C++" %}
+                        <li><a href="/categories/C++" class="">C++ 기초 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% for category in site.categories %}
+                    {% if category[0] == "STL" %}
+                        <li><a href="/categories/STL" class="">C++ 표준 라이브러리 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% for category in site.categories %}
+                {% if category[0] == "C++실습" %}
+                    <li><a href="/categories/C++실습" class="">C++ 실습 ({{category[1].size}})</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+            <span class="nav__sub-title" style="color: #ECB601;">언리얼 5</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "UE5" %}
+                        <li><a href="/categories/UE5" class="">언리얼5 기초 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <span class="nav__sub-title" style="color: #ECB601;">메이플스토리 월드</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "MSW" %}
+                        <li><a href="/categories/MSW" class="">MSW 기초 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% for category in site.categories %}
+                    {% if category[0] == "MSW실습" %}
+                        <li><a href="/categories/MSW실습" class="">MSW 실습 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            
+      </li>
+  </ul>
+</nav>
+
