@@ -65,32 +65,23 @@ Game Instance Class에 SGameInstance 지정.
 
 
 - CoreMinmal.h
-
-  Engine.h보다 경량화된 헤더이다.
-
-  개발에 필요한 대부분의 헤더를 포함한다.
-
+  - Engine.h보다 경량화된 헤더이다.
+  - 개발에 필요한 대부분의 헤더를 포함한다.
 - Enegine/GameInstance.h
-
-​	부모 클래스의 헤더이다.
+  - 부모 클래스의 헤더이다.
 
 - SGameInstance.generated.h
-
- 	언리얼 헤더 툴에 의해 .h가 .generated.h 파일로 변환된다.
+  - 언리얼 헤더 툴에 의해 .h가 .generated.h 파일로 변환된다.
 
 - UCLASS()
-
-​	언리얼 클래스를 생성하기 전 작성해야 하는 매크로
+  - 언리얼 클래스를 생성하기 전 작성해야 하는 매크로
 
 - STUDYPROJECT_API
-
-​	다른 모듈에서 해당 개체에 접근할 수 있게 한다. 
-
-​	__declspec(dllexport)
+  - 다른 모듈에서 해당 개체에 접근할 수 있게 한다. 
+  - __declspec(dllexport)
 
 - GENERATED_BODY
-
-​	이를 통해 .generated.body 파일을 만들어냄.
+  - 이를 통해 .generated.body 파일을 만들어냄.
 
 
 
