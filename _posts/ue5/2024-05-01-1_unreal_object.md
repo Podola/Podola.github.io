@@ -119,6 +119,64 @@ GetDefaut() 함수를 통해 CDO를 가져온다.
 
 모든 언리얼 오브젝트는 자기 클래스의 속성과 함수 정보를 컴파일 타임(StaticClass())과 런타임(GetClass())에서 조회 할 수 있다.
 
+```c++
+// SUnrealObjectClass.h
+
+...
+class STUDYPROJECT_API USUnrealObjectClass : public UObject
+{
+    GENERATED_BODY()
+
+public:
+    USUnrealObjectClass();
+
+    UFUNCTION()
+    void HelloUnreal();
+
+    const FString& GetName() const { return Name; }
+
+public:
+    UPROPERTY()
+    FString Name;
+};
+```
+
+```c++
+// SUnrealObjectClass.cpp
+
+...
+USUnrealObjectClass::USUnrealObjectClass()
+{
+    Name = TEXT("CDO");
+}
+void USUnrealObjectClass::HelloUnreal()
+{
+    UE_LOG(LogTemp, Log, TEXT("HelloUnreal() has been called."));
+}
+```
+
+```c++
+// SGameInstance.cpp
+#include "SUnrealObjectClass.h"
+
+...
+void USGameInstance::Init()
+{
+    ...
+    USUnrealObjectClass* USObject1 = NewObject<USUnrealObjectClass>();
+    
+    UE_LOG(LogTemp, Log, TEXT("USObject1's Name: %s"), *USObject1->GetName());
+    // 직접 정의한 Getter()
+    
+    FProperty* NameProperty = USUnrealObjectClass::StaticClass()->FindPropertyByName(TEXT("Name"));
+    // 프로퍼티 시스템을 활용한 Getter()
+    
+    
+}
+
+
+```
+
 
 
 ### 🔸인터페이스
