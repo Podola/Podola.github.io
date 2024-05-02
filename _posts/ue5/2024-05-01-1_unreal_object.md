@@ -171,10 +171,21 @@ void USGameInstance::Init()
     FProperty* NameProperty = USUnrealObjectClass::StaticClass()->FindPropertyByName(TEXT("Name"));
     // 프로퍼티 시스템을 활용한 Getter()
     
+    FString CompiletimeName;
+    // StaticClass()는 컴파일 타임에 조사
+    if(nullptr != NameProperty)
+    {
+      NameProperty->GetValue_InContainer(USObject1, &CompiletimeName);
+      UE_LOG(LogTemp, Log, TEXT("CompiletimeName: %s"), *CompiletimeName);
+    }
     
+    UFunction* HelloUnrealFunction = USObject1->GetClass()->FindFunctionByName(TEXT("HelloUnreal"));
+    if(nullptr != HelloUnrealFunction)
+    {
+      USObject1->ProcessEvent(HelloUnrealFunction, nullptr);
+    }    
 }
-
-
+...
 ```
 
 
