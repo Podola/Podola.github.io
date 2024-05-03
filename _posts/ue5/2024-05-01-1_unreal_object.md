@@ -50,7 +50,7 @@ class STUDYPROJECT_API USGameInstance : public UGameInstance
 #include "SUnrealObjectClass.h"
 ```
 
-{: .notice--warning}
+{: .notice}
 
 접두사 S는 프로젝트명 StudyProject에서 가져옴.
 
