@@ -187,7 +187,7 @@ void USGameInstance()::Init()
 
 🚀 결과
 
-![TArray](D:\Blog\podola.github.io\images\2024-05-01-2_unreal_data_structure\TArray.png)
+![TArray]({{site.url}}\images\2024-05-01-2_unreal_data_structure\TArray.png)
 
 
 
