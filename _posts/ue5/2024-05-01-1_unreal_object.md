@@ -42,7 +42,7 @@ UCLASS()
 class STUDYPROJECT_API USGameInstance : public UGameInstance
 {
     GENERATED_BODY()
-}
+};
 ```
 
 ```c++
@@ -105,7 +105,7 @@ Game Instance Class에 SGameInstance 지정.
 
 개체 생성 시 아예 새로운 개체를 생성하지 않고 CDO를 복제하는 방식으로 메모리 효율을 높인다.
 
-GetDefaut() 함수를 통해 CDO를 가져온다.
+`GetDefault()` 함수를 통해 CDO를 가져온다.
 
 
 
@@ -113,21 +113,25 @@ GetDefaut() 함수를 통해 CDO를 가져온다.
 
 리플렉션은 런타임 중 자기 자신을 조사하는 기능이다.
 
-언리얼 오브젝트 클래스의 속성(*멤버 변수*)에 UPROPERTY(), 함수에 UFUNCTION()을 붙인다.
+언리얼 오브젝트 클래스의 속성(*멤버 변수*)에 `UPROPERTY()`, 함수에 `UFUNCTION()`을 붙인다.
 
 매크로를 통해 런타임 중인 언리얼 에디터에 메타 데이터를 전달한다.
 
-모든 언리얼 오브젝트는 자기 클래스의 속성과 함수 정보를 컴파일 타임(StaticClass())과 런타임(GetClass())에서 조회 할 수 있다.
+모든 언리얼 오브젝트는 자기 클래스의 속성과 함수 정보를 컴파일 타임(`StaticClass()`)과 런타임(`GetClass()`)에서 조회 할 수 있다.
+
+
+
+#### ·  실습
 
 ```c++
 // SUnrealObjectClass.h
 
 ...
+    
 class STUDYPROJECT_API USUnrealObjectClass : public UObject
 {
-    GENERATED_BODY()
-
-public:
+    ...    
+        
     USUnrealObjectClass();
 
     UFUNCTION()
@@ -145,6 +149,7 @@ public:
 // SUnrealObjectClass.cpp
 
 ...
+    
 USUnrealObjectClass::USUnrealObjectClass()
 {
     Name = TEXT("CDO");
@@ -160,9 +165,11 @@ void USUnrealObjectClass::HelloUnreal()
 #include "SUnrealObjectClass.h"
 
 ...
+    
 void USGameInstance::Init()
 {
     ...
+        
     USUnrealObjectClass* USObject1 = NewObject<USUnrealObjectClass>();
     
     UE_LOG(LogTemp, Log, TEXT("USObject1's Name: %s"), *USObject1->GetName());
@@ -185,6 +192,7 @@ void USGameInstance::Init()
       USObject1->ProcessEvent(HelloUnrealFunction, nullptr);
     }    
 }
+
 ...
 ```
 
@@ -192,41 +200,358 @@ void USGameInstance::Init()
 
 ### 🔸인터페이스
 
-워크스페이스의 콘텍스트 메뉴에서 **Create Model**을 클릭해서 빈 모델을 생성합니다.
+자식 클래스가 반드시 구현해야할 행동을 지정하는데 활용한다.
 
-또는 이미 배치 되어있는 엔티티의 콘텍스트 메뉴의 **Create Model From Entity**를 클릭해 엔티티 모델을 만들 수 있습니다.
+
+
+#### · 실습
+
+```c++
+// SFlyable.h
+
+...
+    
+UINTERFACE(MinimalAPI)
+class USFlyable : public UInterface
+{
+    GENERATED_BODY()
+};
+
+class STUDYPROJECT_API ISFlyable
+{
+    GENERATED_BODY()
+    
+public:
+    virtual void Fly() = 0;
+};
+```
+
+```c++
+// SPigeon.h
+
+...
+    
+UCLASS()
+class STUDYPROJECT_API USPigeon
+    	: public UObject,
+		: public ISFlyable
+{
+	GENERATED_BODY()
+     
+public:
+    virtual void Fly() override;
+            
+private:
+    UPROPERTY()
+    FString Name;
+            
+};
+```
 
 
 
 ### 🔸가비지 컬렉션
 
-원하는 모델을 씬으로 드래그 하면 됩니다.
+C++에서 할당 받은 메모리는 반드시 직접 해제시켜 줘아한다.
+
+가비지 컬렉션은 더이상 사용하지 않는 언리얼 오브젝트를 자동으로 감지해 회수하는 시스템이다.
+
+생성된 모든 언리얼 오브젝트 정보를 모아둔 저장소를 사용해서 추적한다.
+
+
+
+#### · Mark-Sweep
+
+1. 저장소에서 최초 검색을 시작하는 루트 오브젝트에서 시작.
+
+2. 루트 오브젝트가 참조하는 개체를 찾아 Mark.
+
+3. Mark된 개체가 참조하는 개체를 찾아서 다시 Mark. 반복.
+
+4. 가비지 컬렉터는 저장소에서 Mark되지 않은 개체들의 메모리 회수(Sweep)
+
+
+
+#### · GUIObjectArray
+
+관리되는 모든 언리얼 오브젝트의 정보를 저장하는 전역 자료구조.
+
+
+
+#### · GCCycle
+
+메모리를 한번에 회수하는 주기.
+
+
+
+#### · 로우 포인터 문제 해결
+
+- 메모리 누수 : 가비지 컬렉션 시스템으로 해결.
+- 댕글링 포인터 : `IsValid()` 함수로 해결.
+- 와일드 포인터 : 언리얼 오브젝트의 속성은 `UPROPERTY()` 작성 시 자동 nullptr 초기화.
+
+
+
+#### · 언리얼 스마트 포인터
+
+- TUniquePtr : 포인터의 소유권을 공유할 수 없다.
+- TSharedPtr : 할당된 포인터가 여러 로직에서 공유되어 사용될 때 사용한다.
+
+- TSharedRef : TSharedPtr과 유사하지만 유효한 개체임을 보장받는다.
+
+- TWeakPtr : TSharedPtr의 순환 참조 문제를 개선한 포인터.
 
 
 
 ### 🔸직렬화
 
-프로퍼티 에디터 최상단에는 어떤 컴포넌트에도 속하지 않은 프로퍼티있는데, 이것이 모델 프로퍼티이다.
+오브젝트 그래프를 바이트 스트림으로 변화하는 과정이다.
 
-모델 프로퍼티는 모델에 포함된 컴포넌트의 일부 프로퍼티를 즐겨찾기처럼 모아놓은 것이다.
+{: .notice--info}
 
-
-
-## 3️⃣ Entity, Component, Property
+💡오브젝트 그래프 : 하나의 개체가 다른 개체를 속성으로 들고 있는 것.
 
 
 
-## 4️⃣ 월드 인스턴스
+#### · 직렬화의 활용
+
+현재 게임의 상태를 저장하고 복원할 수 있다.
+
+캐릭터의 위치를 네트워크 상 다른 컴퓨터에서 재현 가능하다.
 
 
 
-## 5️⃣ DataStorage
+#### · 언리얼의 직렬화
+
+언리얼에서 제공하는 FArchive와 << 연산자를 활용한다.
+
+메모리, 파일, JSON 등 다양한 아카이브 클래스가 제공된다.
+
+
+
+#### ·  USTRUCT
+
+데이터의 저장, 전송에 사용한다.
+
+직렬화 기능을 제공하고 스택 메모리에 저장된다. (힙 메모리 할당 없음)
+
+
+
+#### · 실습
+
+```c++
+// SFlyable.h 의 FBirdData
+...
+USTRUCT()
+struct FBirdData
+{
+    GENERATED_BODY()
+
+public:
+    FBirdData() {}
+    FBirdData(const FString& InName, int32 InID) : Name(InName), ID(InID) {}
+    
+    friend FArchive& operator<<(FArchive& Ar, FBirdData& InBirdData)
+    {
+        Ar << InBirdData.Name;
+        Ar << InBirdData.ID;
+        return Ar;
+	}
+    
+    UPROPERTY()
+    FString Name = TEXT("DefaultBirdName");
+    
+    UPROPERTY()
+    int32 ID = 0;
+};
+```
+
+```c++
+// SGameInstance.h
+
+...
+class STUDYPROJECT_API USGameInstance : public UGameInstance
+{
+    ...
+        
+private:
+    ...
+        
+    UPROPERTY()
+    TObjectPtr<class USPigeon> SerializedPigeon;
+};
+```
+
+```c++
+// SGameInstance.cpp
+
+...
+void USGameInstance::Init()
+{
+    ...
+        
+    FBirdData SrcRawData(TEXT("Pigeon5"), 5);
+    const FString SaveDir = FPaths::Combine(FPlatformMisc::ProjectDir(), TEXT("Saved"));
+    const Fstring FileName(TEXT("RawData.bin"));
+    FString AbsolutePath = FPaths::Combine(*SaveDir, *FileName);
+    FPaths::MakeStandardFileName(AbsolutePath);
+    
+    // 직렬화
+    FArchive* WriteAr = IFileManager::Get().CreateFileWriter(*AbsolutePath);
+    if(nullptr != WriteAr)
+    {
+        *WriteAr << SrcRawData;
+        WriteAr->Close();
+        delete WriteAr;
+        WriteAr = nullptr;
+	}
+    
+    // 역직렬화
+    FBirdData DstRawData;
+    FArchive* ReadAr = IFileManager::Get().CreateFileReader(*AbsolutePath);
+    if(nullptr != ReadAr)
+    {
+        *ReadAr << DstRawData;
+        ReadAr->Close();
+        delete ReadAr;
+        ReadAr = nullptr;
+    }
+}
+```
+
+
+
+### 🔸델리게이트
+
+#### · 발행-구독 패턴
+
+발행자와 구독자 사이에 중개인이 있는 패턴.
+
+발행자와 구독자는 중개인과의 통신만 신경쓰면 되므로 유지보수가 쉽다.
+
+다만 반대 쪽의 상황을 알 수가 없다.
+
+
+
+#### · 언리얼에서 발행-구독 패턴
+
+발행자를 위한 `Broadcast()`, 구독자를 위한`Add()`를 제공한다.
+
+컨텐츠가 발행되면 발행자가 `Broadcast()`를 호출하고 그걸 구독하기 위해 구독자가 `Add()` 호출.
+
+특정 이벤트 발생 시 호출되어질 함수 등록.
+
+델리게이트 선언 메크로 : `DECLARE_{델리게이트 유형}_DELEGATE_{바인드 될 함수 명세}`
+
+
+
+#### ·  델리게이트 유형 별 구분
+
+- 1:1, c++ : DECLARE_DELEGATE
+- 1:N, c++ : DECLARE_MULTICAST_DELEGATE
+- 1:1, c++ & Blueprint : DECLARE_DYNAMIC_DELEGATE
+- 1:N, c++ & Blueprint : DECLARE_DYNAMIC_MULTICAST_DELETEGATE
+
+
+
+#### 바인드 될 함수 명세 별 구분
+
+- 매개변수 없음, 반환값 없음 : 공란
+- 매개변수 1개, 반환값 없음 : OneParam
+- 매개변수 3개, 반환값 있음 : RetVal_ThreeParams
+
+
+
+#### ·  실습
+
+```c++
+// SPigeon.h
+...
+    
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPigeonFlying, const FString&, InName, const int32, InID)
+
+...
+    
+class STUDYPROJECT_API USPigeon : public UObject, public ISFlyable
+{
+	...
+        
+public:
+    FOnPigeonFlying OnPigeonFlying;	// 중개자 역할
+    
+    ...
+};
+```
+
+```c++
+// SPigeon.cpp
+
+...
+    
+void USPigeon::Fly()
+{
+    ...    
+        
+    OnPigeonFlying.Broadcast(*Name, ID);
+}
+
+...
+```
+
+```c++
+// SGameInstance.h
+
+...
+class STUDYPROJECT_API USGameInstance : public UGameInstance
+{
+    ...
+    
+public:
+    UFUNCTION()
+    void HandlePigeonFlying(const FString& InName, const int32 InID);
+    
+private:
+    UPROPERTY()
+    TObjectPtr<class USPigeon> SpawnedPigeon;
+}
+```
+
+```c++
+// SGameInstance.cpp
+
+...
+    
+void USGameInstance::Init()
+{
+    ...
+    
+    SpawnedPigeon = NewObject<USPigeon>();
+    if(false == SpawnedPigeon->OnPigeonFlying.IsAlreadyBound(this, &ThisClass::HandlePigeonFlying))
+    {
+        SpawnedPigeon->OnPigeonFlying.AddDynamic(this, &ThisClass::HandlePigeonFlying);
+	}
+    
+    SpawnedPigeon->Fly();
+}
+
+void USGameInstance::Shutdown()
+{
+    ...
+    
+    if (true == SpawendPigeon->OnPigeonFlying.IsAlreadyBound(this, &ThisClass::HandlePigeonFlying))
+    {
+        SpawnedPigeon->OnPIgeonFlying.RemoveDynamic(this, &ThisClass::HandlePigeonFlying);
+	}
+}
+```
+
+
 
 
 ***
 <br>
 
-    이 글은 코드조선님의 인프런 강의 Go Hard to Unreal를 참고했습니다.
+    이 글은 코드조선님의 인프런 강의 Go Hard to Unreal를 정리하여 작성했습니다.
     잘못된 내용이 있을 경우 메일로 지적바랍니다!😄
 
 [맨 위로 이동하기](#){: .btn .btn--primary }{: .align-right}
