@@ -21,7 +21,9 @@ last_modified_at: 2024-05-07
 | 시간      | 월드에서 흐르는 시간이며 단위는 초이다.                      |
 | 물리      | 월드에 배치된 액터들 사이의 상호 작용이다.                   |
 
-이번 장에서는 월드를 구성하는 단위 체계인 액터와, 액터를 구성하는 컴포넌트를 설명한다.
+
+
+이번 장에서는 월드를 구성하는 단위 체계인 **액터**와, 액터를 구성하는 **컴포넌트**에 대해 설명한다.
 
 
 
@@ -45,7 +47,113 @@ last_modified_at: 2024-05-07
 
 
 
+### 🔸실습
 
+#### ·  STorch
+
+여러 컴포넌트를 포함한 새 c++ 클래스를 생성한다.
+
+```c++
+// STorch.h
+
+UCLASS()
+class STUDYPROJECT_API ASTorch : public AActor
+{
+    GENERATED_BODY()
+
+public:
+    ASTorch();
+    
+private:
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ASTorch", Meta=(AllowPrivateAccess))	// 매크로의 지정자
+    TObjectPtr<UBoxComponent> BoxComponent;
+    
+   	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ASTorch", Meta=(AllowPrivateAccess))
+    TObjectPtr<UStaticMeshComponent> BodyStaticMeshComponent;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ASTorch", Meta=(AllowPrivateAccess))
+    TObjectPtr<UPointLightComponent> PointLightComponent;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ASTorch", Meta=(AllowPrivateAccess))
+    TObjectPtr<UParticleSystemComponent> ParticleSystemComponent;
+    
+    UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="ASTorch", Meta=(AllowPrivateAccess))
+    int32 ID;
+    
+};
+```
+
+```c++
+// STorch.cpp
+
+...
+    
+ASTorch::ASTorch()
+{
+    PrimaryActorTick.bCanEverTick = false;		// true인 경우 Tick() 함수가 매 프레임마다 호출됨.
+    
+    BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
+    SetRootComponent(BoxComponent);
+    
+    BodyStaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyStaticMeshComponent"));
+    BodyStaticComponent->SetupAttachment(GetRootComponent());
+    
+    PointLightComponent = CreateDefaultSubobject<UPointLightComponent>(TEXT("PointLightComponent"));
+    PointLightComponent->SetupAttachment(GetRootComponent());
+    
+    ParticleSystemComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystemComponent"));
+    ParticleSystemComponent->SetupAttachment(GetRootComponent());
+    
+}
+```
+
+
+
+#### ·  UPROPERTY() 매크로의 지정자
+
+Visible / Edit : 에티터에서 수정 불가능/가능
+
+Anywhere / DefaultOnly / InstanceOnly : 에디터에서 편집 가능한 영역. 어디서나/CDO에서만/개체에서만
+
+BlueprintReadOnly / BlueprintReadWrite : 해당 클래스가 블루프린트 클래스에서 상속 받을시에 수정 불가능/가능
+
+Category : Details에서 카테고리 설정
+
+Meta : 추가로 필요한 지정자들을 작성하는 용
+
+
+
+STorch 클래스를 생성했다면 블루프린트 에셋을 생성한다.
+
+새 Blueprint 에셋 > STorch 부모 클래스 > "BP_Torch"
+
+
+
+### 🔸에셋
+
+레벨을 제외하고 .uassset 확장자를 가진다.
+
+언리얼은 에셋의 고유한 키 값으로 경로를 활용한다. 
+
+경로는 {오브젝트 타입}'{폴더명}/{파일명}.{에셋명}' 형태의 오브젝트 패스가 되고, 이를 이용해 에셋을 로딩한다.
+
+
+
+#### ·  오브젝트 패스를 이용한 에셋 지정
+
+```c++
+BodyStaticMeshComponent = CreateDefaultObject<USTaticMeshComponent>(TEXT("BodyStaticMeshComponent"));
+BodyStaticMeshComponent->SetupAttachment(GetRootComponent());
+static ConstructorHelpers::FObjectFinder<UStaticMesh> BodyStaticMesh(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Architecture/Pillar_50x500.Pillar_50x500'"));
+if (true == BodyStaticMesh)
+{
+    BodyStaticMeshComponent->SetStaticMesh(BodyStaticMesh.Object);
+}
+```
+
+위와 같이 하드 코딩 시 에셋의 경로가 바뀌면 코드를 다시 수정 해야 한다. 
+
+블루프린트 에셋에서 지정하면 에셋이 이동하더라도 **Fix Up Redirectors** 메뉴를 통해 재조정 할 수 있다.
 
 
 
@@ -95,25 +203,139 @@ last_modified_at: 2024-05-07
 
 
 
+#### ·  무브먼트 컴포넌트
+
+- FloatingPawnMovement : 중력의 영향을 받지 않는 액터의 움직임을 제공.
+- RotatingMovement : 지정한 속도로 액터를 회전시킴.
+- InterpMovement : 지정한 위치로 액터를 이동시킴.
+- ProjectileMovement : 탄도학적인 움직임을 제공.
+- CharacterMovementComponent : 캐릭터 전용 움직임 컴포넌트.
 
 
 
+### 🔸이벤트 함수
 
-4️⃣5️⃣6️⃣
+게임이 시작 될 때, 액터는 준비/시작/퇴장의 과정을 거친다.
+
+이 과정에서 언리얼 엔진에서 자동으로 호출되는 함수를 이벤트 함수라 한다.
 
 
 
-### 🔸제목
+#### ·  주요 이벤트 함수
 
-#### ·  소제목
+1. PostInitializeComponents() : 액터를 구성하는 모든 컴포넌트가 초기화 되었고 액터 자신이 초기화 될 수 있는 상태일 때 호출. 준비 과정.
 
-{: .notice--warning}
+2. BeginPlay() : 이 함수가 호출되면서 액터는 자신에게 주어진 로직을 수행하기 시작. 시작 과정.
 
-🚀 결과
+3. Tick(float DeltaSeconds) : 매 프레임마다 호출.
 
-{: .notice--info}
+4. EndPlay(EEndPlayReason EndPlayReason) : 게임에서 액터가 소멸될 때 호출. 퇴장 과정.
 
-💡 정보
+
+
+### 🔸실습
+
+#### ·  Tick() 함수를 활용한 액터의 회전
+
+```c++
+// STorch.h
+
+UCLASS()
+class STUDYPROJECT_API ASTorch : public AActor
+{
+public:
+    ...
+    
+    virtual void BeginPlay() override;
+  	virtual void Tick(float DeltaSeconds) override;
+    
+private:
+    ...
+    
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="ASTorch", Meta=(AllowPrivateAccess))
+    float RotationSpeed;
+    
+};
+```
+
+```c++
+// STorch.cpp
+
+...
+    
+ASTorch::ASTorch()
+{
+    PrimaryActorTick.bCanEverTick = true;
+}
+
+void ASTorch::BeginPlay()
+{
+    Super::BeginPlay();
+    
+    RotationSpeed = 300.f;
+}
+
+void ASTorch::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+    
+    AddActorWorldRotation(FRotator(0.f, RotationSpeed * DeltaSeconds, 0.f));
+}
+```
+
+
+
+#### · RotatingMovement 컴포넌트를 활용한 액터의 회전
+
+```c++
+// STorch.h
+
+UCLASS()
+class STUDYPROJECT_API ASTorch : public AActor
+{
+public:
+    ...
+    
+    virtual void BeginPlay() override;
+  	virtual void Tick(float DeltaSeconds) override;
+    
+private:
+    ...
+    
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="ASTorch", Meta=(AllowPrivateAccess))
+    TObjectPtr<URotatingMovementComponent> RotatingMovementComponent;
+    
+};
+```
+
+```c++
+// STorch.cpp
+
+...
+    
+ASTorch::ASTorch()
+{
+    PrimaryActorTick.bCanEverTick = true;
+    
+    RotatingMovementComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("RotatingMovementComponent"));
+    // MoveComponent는 SceneComponent의 자식 클래스가 아니다. (트랜스폼 정보가 없다.)
+    // 따라서 루트 컴포넌트에 Attachment하지 않는다.
+}
+
+void ASTorch::BeginPlay()
+{
+    Super::BeginPlay();
+    
+    RotatingMovementComponent->RotationRate = FRotator(0.f, RotationSpeed, 0.f);
+}
+
+void ASTorch::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+}
+```
+
+
 
 
 ***
