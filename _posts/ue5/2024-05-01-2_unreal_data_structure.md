@@ -1,5 +1,5 @@
 ---
-title: "[언리얼5] 2. 언리얼 자료구조"
+title: "[언리얼5] 2. 언리얼 자료 구조"
 
 categories: 
     - UE5
@@ -159,6 +159,7 @@ void USGameInstance()::Init()
     int32 ArraySize = 6;
     TArray<int32> IntArray;
     
+    // TArray에 추가
     for (int32 i = 1; i <= ArraySize; i++)
     {
         IntArray.Add(i);
@@ -171,6 +172,7 @@ void USGameInstance()::Init()
 	}
     UE_LOG(LogTemp, Log, TEXT("====="));
     
+    // 일괄 삭제
     IntArray.RemoveAll([](int32 InElement)->bool { return 0 == InElement % 2; });
     
     for (Element : IntArray)
@@ -197,7 +199,13 @@ STL의 Unoredered Set과 유사하다.
 
 중복되지 않는 키를 관리한다.
 
-
+| STL Set                               | UCL TSet                                                     |
+| ------------------------------------- | ------------------------------------------------------------ |
+| 이진트리 기반. 정렬을 지원함.         | 해시 테이블 기반. 빠른 검색이 가능함.                        |
+| 메모리 구성이 효율적이지 않음.        | 동적 배열의 형태로 메모리 구성이 효율적임.                   |
+| 자료 삭제 시 재구축이 일어날 수 있음. | 재구축이 일어나지 않음.                                      |
+| 모든 자료를 순회하는데 적합하지 않음. | 빠르게 모든 자료를 순회할 수 있음.                           |
+|                                       | 비어있는 원소가 있을 수 있음.<br />추후에 삽입되는 데이터가 빈 원소를 채움. |
 
 #### ·  실습
 
@@ -208,9 +216,50 @@ STL의 Unoredered Set과 유사하다.
     
 void USGameInstance()::Init()
 {
+    const int32 SetSize = 6;
+    TSet<int32> IntSet;
     
+    // TSet에 추가
+    for(int32 i = 1; i <= SetSize; i++)
+    {
+        IntSet.Add(i);
+	}
+    
+    // PrintSet(IntSet);
+    for(int32 Element : IntSet)
+    {
+        int32 i = 0;
+        UE_LOG(LogTemp, Log, TEXT("[%d]: %d"), i++, Element);
+    }
+    UE_LOG(LogTemp, Log, TEXT("====="));
+    
+    // 하나씩 삭제
+    IntSet.Remove(2);
+    IntSet.Remove(4);
+    IntSet.Remove(6);
+    
+    PrintSet(TSet);
+    
+    // 다시 추가
+    IntSet.Add(2);
+    IntSet.Add(4);
+    IntSet.Add(6);
+    
+    PrintSet(TSet);
+    
+    int32 Key = 2;
+    UE_LOG(LogTemp, Log, TEXT("%d: %s"), Key, nullptr == IntSet.Find(Key) ? TEXT("nullptr") : TEXT("is in"));
+    
+    Key = 11;
+    UE_LOG(LogTemp, Log, TEXT("%d: %s"), Key, nullptr == IntSet.Find(Key) ? TEXT("nullptr") : TEXT("is in"));
 }
 ```
+
+{: .notice--warning}
+
+🚀 결과
+
+![TSet]({{site.url}}\images\2024-05-01-2_unreal_data_structure\TSet.png)
 
 
 
@@ -220,9 +269,45 @@ STL의 Unordered Map과 유사하다.
 
 중복되지 않는 키-벨류 쌍의 자료를 관리한다.
 
+비어있는 요소가 있을 수 있고, TMultiMap을 사용하면 중복 키 자료도 저장할 수 있다.
+
+| STL Map                              | UCL TMap                              |
+| :----------------------------------- | :------------------------------------ |
+| 이진 트리 기반                       | 해시 테이블 기반                      |
+| 메모리 구성이 비효율적               | 동적 배열 형태라 메모리 구성이 효율적 |
+| 자료 삭제 시 재구축이 일어날 수 있음 | 재구축이 일어나지 않음                |
+| 모든 자료를 순회하는데 적합하지 않음 | 빠르게 순회할 수 있음                 |
+
 
 
 #### ·  실습
+
+```c++
+// SFlyable.h
+
+struct FBirdData
+{
+    FBirdData() {}
+    FBirdData(const FString& InName, int32 InID) : Name(InName), ID(InID) {}
+    
+    bool operator==(const FBirdData& InBirdData)
+    {
+        return ID == InBirdData.ID;
+	}
+    
+    friend uint32 GetTypeHash(const FBirdData& InBirdData)
+    {
+        return GetTypeHash(InBirdData.ID);
+	}
+    
+    
+    UPROPERTY()
+	FString Name = TEXT("DefaultBirdName");
+    
+    UPROPERTY()
+	int32 ID = 0;
+}
+```
 
 ```c++
 // SGameInstance.cpp
@@ -231,11 +316,43 @@ STL의 Unordered Map과 유사하다.
     
 void USGameInstance()::Init()
 {
+    TMap<int32, FString> BirdMap;
+    BirdMap.Add(5, TEXT("Pigeon"));
+    BirdMap.Add(2, TEXT("Owl"));
+    // BirdMap -- [
+    // { key: 5, value: "Pigeon"		}
+    // { key: 2, value: "Owl"			}
+    // ]
     
+    BirdMap.Add(2, TEXT("Eagle"));
+    // BirdMap -- [
+    // { key: 5, value: "Pigeon"		}
+    // { key: 2, value: "Eagle"			}
+    // ]
+    
+    FString* BirdIn5 = BirdMap.Find(5);
+    // *BirdIn5 == "Pigeon"
+    
+    FString* BirdIn11 = BirdMap.Find(11);
+    // *BirdIn11 == nullptr
 }
 ```
 
+{: .notice--warning}
 
+🚀 결과
+
+
+
+### 🔸시간 복잡도
+
+|      | TArray                 | TSet                      | TMap                         |
+| ---- | ---------------------- | ------------------------- | ---------------------------- |
+| 특징 | 캐시 지역성, 임의 접근 | 빠른 중복 감지, 임의 접근 | 키-벨류 자료 관리, 임의 접근 |
+| 접근 | O(1)                   | O(1)                      | O(1)                         |
+| 검색 | O(N)                   | O(1)                      | O(1)                         |
+| 삽입 | O(N)                   | O(1)                      | O(1)                         |
+| 삭제 | O(N)                   | O(1)                      | O(1)                         |
 
 
 
