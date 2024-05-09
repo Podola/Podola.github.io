@@ -16,7 +16,7 @@ last_modified_at: 2024-05-09
 
 ## 1️⃣ 문제
 
-![problem]({{site.url}}\images\2024-05-09-01_programmers_1\problem.png)
+![problem]({{site.url}}\images\2024-05-09-programmers_1\problem.png)
 
 ## 2️⃣ 풀이
 
