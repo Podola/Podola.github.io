@@ -55,7 +55,13 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "개발남노씨 코딩 테스트" %}
+                        <li><a href="/categories/개발남노씨코딩테스트" class="">개발남노씨 코딩 테스트 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
       </li>
   </ul>
 </nav>
