@@ -17,7 +17,7 @@ last_modified_at: 2024-05-09
 
 ## 1️⃣ 문제
 
-
+![problem]({{site.url}}\images\2024-05-09-programmers_2\problem.png)
 
 
 
