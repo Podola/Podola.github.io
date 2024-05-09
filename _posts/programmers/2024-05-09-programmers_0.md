@@ -76,10 +76,10 @@ string changeStr = "XXX";
 
 while(true)
 {
-    int pos = s.find(findStr);			// find(string, offset);
+    int pos = s.find(findStr);				// find(string, offset);
     if(pos == -1)
         break;
-    replace(pos, findStr.size(), changeStr);	// replace(offset, size, newString)
+    replace(pos, findStr.size(), changeStr);		// replace(offset, size, newString)
     
 }
 
