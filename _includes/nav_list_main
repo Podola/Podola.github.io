@@ -11,8 +11,8 @@
         <span class="nav__sub-title" style="color: #ECB601;">C / C++</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "C++" %}
-                        <li><a href="/categories/C++" class="">C++ 기초 ({{category[1].size}})</a></li>
+                    {% if category[0] == "C++기초" %}
+                        <li><a href="/categories/C++기초" class="">C++ 기초 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
                 {% for category in site.categories %}
