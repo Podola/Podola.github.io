@@ -1,5 +1,5 @@
 ---
-title: "[프로그래머스] 2. 옹알이 (1)"
+title: "[프로그래머스] 3. 33"
 
 categories: 
     - programmers
@@ -17,7 +17,7 @@ last_modified_at: 2024-05-09
 
 ## 1️⃣ 문제
 
-![1-cursenum3]({{site.url}}\images\2024-05-09-01_1\1-cursenum3.png)
+
 
 
 

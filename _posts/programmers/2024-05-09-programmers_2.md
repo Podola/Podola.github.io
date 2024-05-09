@@ -1,5 +1,5 @@
 ---
-title: "[프로그래머스] 1. 저주의 숫자 3"
+title: "[프로그래머스] 2. 옹알이 (1)"
 
 categories: 
     - programmers
@@ -12,11 +12,14 @@ last_modified_at: 2024-05-09
 
 
 
+
 ---
 
 ## 1️⃣ 문제
 
-![problem]({{site.url}}\images\2024-05-09-01_1_programmers\problem.png)
+
+
+
 
 ## 2️⃣ 풀이
 

@@ -1,5 +1,5 @@
 ---
-title: "[프로그래머스] 3. 저주의 숫자 3"
+title: "[프로그래머스] 1. 저주의 숫자 3"
 
 categories: 
     - programmers
@@ -12,14 +12,11 @@ last_modified_at: 2024-05-09
 
 
 
-
 ---
 
 ## 1️⃣ 문제
 
-![1-cursenum3]({{site.url}}\images\2024-05-09-01_1\1-cursenum3.png)
-
-
+![problem]({{site.url}}\images\2024-05-09-01_programmers_1\problem.png)
 
 ## 2️⃣ 풀이
 
