@@ -17,129 +17,75 @@ last_modified_at: 2024-05-09
 
 ## 1️⃣ 문자열
 
-#### · 부분 문자열
+#### 1. 부분 문자열
 
 ```c++
+//- 1. 부분 문자열
+string s = "podola";
+string sub = s.substr(0, 2);		//substr(index, length)
 
-```
 
+//- 2. 숫자를 문자열로
+int num = 1234;
+string s = to_string(num);
 
 
-#### · 숫자를 문자열로
+//- 3. 문자열을 숫자로
+string s = "1234";
+int num = stoi(s);
 
-```c++
 
-```
+//- 4. 소문자로
+string s = "ABCD";
+for_each(s.begin(), s.end(), [](char& c) { c = tolower(c); });
 
 
+// -5. 대문자로
+string s = "abcd";
+for_each(s.begin(), s.end(), [](char& c) {c = toupper(c); });
 
-#### · 문자열을 숫자로
 
-```c++
+// -6. 각 자리의 숫자의 합
+int answer = 0;						// answer = 1 + 2 + 3 + 4 + 5
+string s = "12345";
+for(char& c : s)
+    answer += c - '0';
 
-```
 
 
+// -7. 배열을 홀짝으로 나누어 합하기
+int answer = 0;						// answer = "153" + "4628"
+vector<int> v = {1, 4, 5, 6, 3, 2, 8};
+string odds = "";
+string evens = "";
+for(int n : v)
+{
+    if(n & 1)
+        odds += n + '0';
 
-#### · 소문자로
+    else
+        evens += n + '0';
+}
+answer = stoi(odds) + stoi(evens);
 
-```c++
 
-```
+// -8. 문자열 일부 치환
+string s = "ABGGABD";
+string findStr = "AB";
+string changeStr = "XXX";
 
+while(true)
+{
+    int pos = s.find(findStr);		// find(string, offset);
+    if(pos == -1)
+        break;
+    replace(pos, findStr.size(), changeStr);	// replace(offset, size, newString)
+    
+}
 
 
-#### · 각 자리의 합
+// -9. 접두사
 
-```c++
-
-```
-
-
-
-#### · 배열을 홀짝으로 나눠 이어 붙힌 문자열
-
-```c++
-
-```
-
-
-
-#### · 문자열의 일부 치환
-
-```c++
-
-```
-
-
-
-#### · 접두사
-
-```c++
-
-```
-
-
-
-#### · A 강조하기
-
-```c++
-
-```
-
-
-
-#### · 공백으로 구분
-
-```c++
-
-```
-
-
-
-#### · 꼬리 문자열
-
-```c++
-
-```
-
-
-
-#### · 글자 지우기
-
-```c++
-
-```
-
-
-
-#### · s~e 뒤집기
-
-```c++
-
-```
-
-
-
-#### · 문자열 등장 횟수
-
-```c++
-
-```
-
-
-
-#### · a, b, c로 구분하기
-
-```c++
-
-```
-
-
-
-#### · 긴 두 수의 합
-
-```c++
 
 ```
 
