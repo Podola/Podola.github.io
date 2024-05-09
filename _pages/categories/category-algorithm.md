@@ -1,7 +1,7 @@
 ---
 title: "cpp123"
 layout: archive
-permalink: categories/cpp
+permalink: categories/algorithm
 author_profile: true
 sidebar_main: true
 ---

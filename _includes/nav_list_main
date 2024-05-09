@@ -47,6 +47,14 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+            span class="nav__sub-title" style="color: #ECB601;">코딩 테스트</span>
+            <ul>
+                {% for category in site.categories %}
+                    {% if category[0] == "programmers" %}
+                        <li><a href="/categories/programmers" class="">프로그래머스 ({{category[1].size}})</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
             
       </li>
   </ul>
