@@ -1,7 +1,7 @@
 ---
 title: "메이플스토리 월드 기초"
 layout: archive
-permalink: categories/MSW
+permalink: categories/메이플스토리월드기초
 author_profile: true
 sidebar_main: true
 ---
@@ -10,5 +10,5 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.MSW %}
+{% assign posts = site.categories['메이플스토리 월드 기초'] %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}

@@ -16,12 +16,12 @@
                     {% endif %}
                 {% endfor %}
                 {% for category in site.categories %}
-                    {% if category[0] == "STL" %}
-                        <li><a href="/categories/STL" class="">C++ 표준 라이브러리 ({{category[1].size}})</a></li>
+                    {% if category[0] == "C++ 표준 라이브러리" %}
+                        <li><a href="/categories/C++표준라이브러리" class="">C++ 표준 라이브러리 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
                 {% for category in site.categories %}
-                {% if category[0] == "C++실습" %}
+                {% if category[0] == "C++ 실습" %}
                     <li><a href="/categories/C++실습" class="">C++ 실습 ({{category[1].size}})</a></li>
                 {% endif %}
             {% endfor %}
@@ -29,29 +29,29 @@
             <span class="nav__sub-title" style="color: #ECB601;">언리얼 5</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "UE5" %}
-                        <li><a href="/categories/UE5" class="">언리얼5 기초 ({{category[1].size}})</a></li>
+                    {% if category[0] == "언리얼5 기초" %}
+                        <li><a href="/categories/언리얼5기초" class="">언리얼5 기초 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <span class="nav__sub-title" style="color: #ECB601;">메이플스토리 월드</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "MSW" %}
-                        <li><a href="/categories/MSW" class="">MSW 기초 ({{category[1].size}})</a></li>
+                    {% if category[0] == "메이플스토리 월드 기초" %}
+                        <li><a href="/categories/메이플스토리월드기초" class="">메이플스토리 월드 기초 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
                 {% for category in site.categories %}
-                    {% if category[0] == "MSW실습" %}
-                        <li><a href="/categories/MSW실습" class="">MSW 실습 ({{category[1].size}})</a></li>
+                    {% if category[0] == "메이플스토리 월드 실습" %}
+                        <li><a href="/categories/메이플스토리월드실습" class="">메이플스토리 월드 실습 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
             <span class="nav__sub-title" style="color: #ECB601;">코딩 테스트</span>
             <ul>
                 {% for category in site.categories %}
-                    {% if category[0] == "programmers" %}
-                        <li><a href="/categories/programmers" class="">프로그래머스 ({{category[1].size}})</a></li>
+                    {% if category[0] == "프로그래머스" %}
+                        <li><a href="/categories/프로그래머스" class="">프로그래머스 ({{category[1].size}})</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

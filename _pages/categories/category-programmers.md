@@ -1,7 +1,7 @@
 ---
 title: "프로그래머스"
 layout: archive
-permalink: categories/programmers
+permalink: categories/프로그래머스
 author_profile: true
 sidebar_main: true
 ---
@@ -10,5 +10,5 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.programmers %}
+{% assign posts = site.categories['프로그래머스']%}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}

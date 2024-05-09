@@ -1,7 +1,7 @@
 ---
 title: "C++ 표준 라이브러리"
 layout: archive
-permalink: categories/STL
+permalink: categories/C++표준라이브러리
 author_profile: true
 sidebar_main: true
 ---
@@ -10,5 +10,5 @@ sidebar_main: true
 
 ***
 
-{% assign posts = site.categories.STL %}
+{% assign posts = site.categories['C++ 표준 라이브러리'] %}
 {% for post in posts %} {% include archive-single2.html type=page.entries_layout %} {% endfor %}
