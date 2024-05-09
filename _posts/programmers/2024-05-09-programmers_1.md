@@ -18,6 +18,14 @@ last_modified_at: 2024-05-09
 
 ![problem]({{site.url}}\images\2024-05-09-programmers_1\problem.png)
 
+
+
+{: .notice--info}
+
+💡 정보
+
+정수 n이 주어지면 3의 배수이거나 3을 포함하면 스킵하고 카운팅하는 문제이다.
+
 ## 2️⃣ 풀이
 
 ```c++
