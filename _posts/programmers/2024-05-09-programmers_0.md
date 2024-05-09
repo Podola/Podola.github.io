@@ -22,7 +22,7 @@ last_modified_at: 2024-05-09
 ```c++
 //- 1. 부분 문자열
 string s = "podola";
-string sub = s.substr(0, 2);		//substr(index, length)
+string sub = s.substr(0, 2);				//substr(index, length)
 
 
 //- 2. 숫자를 문자열로
