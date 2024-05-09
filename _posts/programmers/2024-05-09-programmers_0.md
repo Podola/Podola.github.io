@@ -84,7 +84,7 @@ while(true)
 
 
 // -9. 접두사
-bool answer = true;						// anwer == true면 접두사 존재
+bool answer = true;					// answer == true면 접두사 존재
 string s = "banana";
 string prefix = "ba";
 for(int i = 0; i < prefix.size(); i++)
@@ -98,18 +98,18 @@ for(int i = 0; i < prefix.size(); i++)
 
 
 // -10. A 강조하기
-string s = "PodOLa";						// A가 아닌 대문자는 소문자로, a는 A로
+string s = "PodOLa";					// A가 아닌 대문자는 소문자로, a는 A로
 for(char& c : s)
 {
     if(c == 'a')
         c = 'A';
     if(c > 'A' && c <= 'Z')
-        c += 'a' - 'A';						// c = tolower(c)
+        c += 'a' - 'A';					// c = tolower(c)
 }
 
 
 // -11. 부분 문자열 찾기
-bool answer = true;						// answer == true면 부분 문자열 존재
+bool answer = true;					// answer == true면 부분 문자열 존재
 string s = "banana";
 string findStr = "ana";
 int pos = s.find(findStr);
