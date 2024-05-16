@@ -41,7 +41,7 @@ last_modified_at: 2024-05-10
 
 그렇다고 매번 크기가 큰 배열을 선언한다면 메모리 비효율이 발생한다.
 
-
+<br>
 
 ### 🔸Dynamic Array
 
@@ -57,7 +57,7 @@ last_modified_at: 2024-05-10
 
 python에서는 list 자료형을 통해 Dynamic Array를 이미 잘 구현해 두었다.
 
-
+<br>
 
 ### 🔸비교
 
@@ -69,7 +69,7 @@ python에서는 list 자료형을 통해 Dynamic Array를 이미 잘 구현해 �
 | insert_at       | O(n)         | O(n)           |
 | delete_at       | O(n)         | O(n)           |
 
-
+<br>
 
 ### 🔸[코테 적용] 반복문
 
@@ -205,7 +205,7 @@ def twoSum(nums, target):
         return False
 ```
 
-
+<br>
 
 ## 2️⃣Linked List
 
