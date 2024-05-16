@@ -127,7 +127,7 @@ $$ O(n \log n) $$, 혹은 이보다 빠른 시간 복잡도가 요구된다.
 
 완전 탐색으로 진행한다.
 
-<br>
+
 
 #### · pseudocode
 
@@ -139,7 +139,7 @@ for i  0~ n
 return false
 ```
 
-<br>
+
 
 #### · code
 
@@ -168,7 +168,7 @@ Two Pointer로 진행한다.
 
 Two Pointer는 정렬이 된 상황에서 쓰이므로 우선 정렬이 필요하다.  $$ O(n \log n) $$
 
-<br>
+
 
 #### · pseudocode
 
@@ -188,7 +188,7 @@ while(l != r):
 return False
 ```
 
-<br>
+
 
 #### · code
 
@@ -225,7 +225,7 @@ Array List는 python에 이미 있는걸 썼다.
 
 Linked List는 문제에 따라서 내가 어떻게 구현하냐가 중요하다.
 
-<br>
+
 
 #### · Node
 
@@ -236,7 +236,7 @@ class Node:
         self.next = next
 ```
 
-<br>
+
 
 #### · LinkedList
 
@@ -254,7 +254,7 @@ class LinkedList(object):
         pass
 ```
 
-<br>
+
 
 #### · append
 
@@ -270,7 +270,23 @@ def append(self, value):
         node.next = new_node
 ```
 
-<br>
+
+
+#### · Get
+
+
+
+
+
+#### · append
+
+
+
+#### · append
+
+
+
+#### · append
 
 
 
