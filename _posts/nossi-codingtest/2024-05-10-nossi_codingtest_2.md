@@ -127,13 +127,11 @@ $$ O(n \log n) $$, 혹은 이보다 빠른 시간 복잡도가 요구된다.
 
 완전 탐색으로 진행한다.
 
+<br>
 
-
-- pseudocode
+*pseudocode*
 
 ```pseudocode
-// 이 완전 탐색의 시간 복잡도는 O(N^2)
-
 for i  0~ n
     for j = i+1 ~ n
         if nums[i] + nums[j] == 14:
@@ -141,9 +139,9 @@ for i  0~ n
 return false
 ```
 
+<br>
 
-
-- python
+*python*
 
 ```python
 def twoSum(nums, target):
@@ -170,14 +168,12 @@ Two Pointer로 진행한다.
 
 Two Pointer는 정렬이 된 상황에서 쓰이므로 우선 정렬이 필요하다.  $$ O(n \log n) $$
 
-- pseudocode
+<br>
+
+*pseudocode*
 
 ```pseudocode
-// 정렬의 시간 복잡도는 O(NlogN)
-// Two Pointer는 정렬이 된 상황에서 쓰임.
-// while() 내부의 시간 복잡도는 O(N). 따라서 전체 시간 복잡도는 O(NlogN)
 nums.sort()
-
 l = 0;
 r = n-1;
 
@@ -192,9 +188,9 @@ while(l != r):
 return False
 ```
 
+<br>
 
-
-- python
+*python*
 
 ```python
 
