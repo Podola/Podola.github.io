@@ -31,7 +31,7 @@ last_modified_at: 2024-05-10
 
 배열 변수는 자신이 할당받은 메모리의 첫 번째 주소값을 가리킨다.
 
-배열은 연속적으로 저장되어 있기 때문에 첫 주소값만 알고 있다면 즉시 접근**이 가능하다. **O(1)**
+배열은 연속적으로 저장되어 있기 때문에 첫 주소값만 알고 있다면 즉시 접근이 가능하다. **O(1)**
 
 
 
@@ -193,44 +193,84 @@ return False
 *python*
 
 ```python
-
+def twoSum(nums, target):
+    	nums.sort()
+        l, r = 0, len(nums)-1
+        
+        while l < r:
+            if nums[l] + nums[r] > target: r -= r
+            elif nums[l] + nums[r] < target: l += l
+        	else: return True
+        
+        return False
 ```
 
 
 
 ## 2️⃣Linked List
 
-### 🔸메모리
+1. Node 구조체가 연괼되는 형식으로 데이터를 저장한다.
+2. Node는 데이터와 next node의 주소를 저장한다.
+3. 메모리상에서는 비연속적이지만 next node를 통해 논리적인 연속성을 갖는다.
 
 
 
-메모리의 연속적인 공간을 사용하는 배열과 불연속적인 공간을 사용하는 리스트는 상황에 맞춰 사용해야 한다.
+### 🔸Node
 
+Linked List는 Node로 이루어져 있다. 
 
+Node를 어떻게 구현하냐에 따라서 Linked List, Tree, Graph가 될 수 있다.
 
-## 3️⃣ 시간 복잡도
+Array List는 python에 이미 있는걸 썼다.
 
-### 🔸Big-O 표기법
+Linked List는 문제에 따라서 내가 어떻게 구현하냐가 중요하다.
 
+<br>
 
+Node
 
-Worst case는 Average case가 같은 경우가 많고, 비교적 구하기 이를 사용해 알고리즘의 시간 복잡도를 나타낸다.
+```python
+class Node:
+	def __init__(self, value = 0, next = None):
+        self.value = value
+        self.next = next
+```
 
+<br>
 
+LinkedList
 
-#### ·  시간 복잡도 비교
+```python
+class LinkedList(object):
+    def __init__(self):
+        self.head = None
+    def append(self, value):
+        pass
+    def get(self, idx):
+        pass
+    def insert(self, idx, value):
+        pass
+    def delete(self, idx):
+        pass
+```
 
+<br>
 
+append
 
-### 🔸제약 조건
+```python
+def append(self, value):
+	new_node = Node(value)
+    if self.head is None:
+        self.head = new_node
+    else:
+        current = self.head;
+        while (current.next):
+            current = current.next
+        node.next = new_node
+```
 
-
-
-
-
-#### ·  Two Sum
-
-
+<br>
 
 
 
@@ -243,31 +283,3 @@ Worst case는 Average case가 같은 경우가 많고, 비교적 구하기 이�
     잘못된 내용이 있을 경우 메일로 지적바랍니다!😄
 
 [맨 위로 이동하기](#){: .btn .btn--primary }{: .align-right}
-
-
-
-
-
-1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣🔟0️⃣
-
-
-
-## 0️⃣ 대제목
-
-
-
-### 🔸중제목
-
-
-
-#### ·  소제목
-
-
-
-{: .notice--warning}
-
-🚀 결과
-
-{: .notice--info}
-
-💡 정보
