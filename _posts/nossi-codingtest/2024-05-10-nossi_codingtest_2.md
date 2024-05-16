@@ -139,7 +139,7 @@ for i  0~ n
 return false
 ```
 
-
+<br>
 
 #### · code
 
@@ -188,7 +188,7 @@ while(l != r):
 return False
 ```
 
-
+<br>
 
 #### · code
 
@@ -272,9 +272,16 @@ def append(self, value):
 
 
 
-#### · Get
+#### · get
 
-
+```python
+def get(self, idx):
+    current = self.head
+    for _ in range(idx) :
+        current = current.next
+    
+    return current
+```
 
 
 
