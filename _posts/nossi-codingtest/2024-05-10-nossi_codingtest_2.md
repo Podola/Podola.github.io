@@ -129,7 +129,7 @@ $$ O(n \log n) $$, 혹은 이보다 빠른 시간 복잡도가 요구된다.
 
 <br>
 
-*pseudocode*
+#### · pseudocode
 
 ```pseudocode
 for i  0~ n
@@ -141,7 +141,7 @@ return false
 
 <br>
 
-*python*
+#### · code
 
 ```python
 def twoSum(nums, target):
@@ -170,7 +170,7 @@ Two Pointer는 정렬이 된 상황에서 쓰이므로 우선 정렬이 필요�
 
 <br>
 
-*pseudocode*
+#### · pseudocode
 
 ```pseudocode
 nums.sort()
@@ -190,7 +190,7 @@ return False
 
 <br>
 
-*python*
+#### · code
 
 ```python
 def twoSum(nums, target):
@@ -227,7 +227,7 @@ Linked List는 문제에 따라서 내가 어떻게 구현하냐가 중요하다
 
 <br>
 
-Node
+#### · Node
 
 ```python
 class Node:
@@ -238,7 +238,7 @@ class Node:
 
 <br>
 
-LinkedList
+#### · LinkedList
 
 ```python
 class LinkedList(object):
@@ -256,7 +256,7 @@ class LinkedList(object):
 
 <br>
 
-append
+#### · append
 
 ```python
 def append(self, value):
