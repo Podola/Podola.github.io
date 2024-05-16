@@ -173,14 +173,23 @@ Two Pointer는 정렬이 된 상황에서 쓰이므로 우선 정렬이 필요�
 - pseudocode
 
 ```pseudocode
-// 정렬의 시간 복잡도는 O(Nlog(N))
+// 정렬의 시간 복잡도는 O(NlogN)
 // Two Pointer는 정렬이 된 상황에서 쓰임.
+// while() 내부의 시간 복잡도는 O(N). 따라서 전체 시간 복잡도는 O(NlogN)
+nums.sort()
 
-for i  0~ n
-    for j = i+1 ~ n
-        if nums[i] + nums[j] == 14:
-            return true
-return false
+l = 0;
+r = n-1;
+
+while(l != r):
+	if nums[l] + nums[r] == target:
+	return True
+	if nums[l] + nums[r] > target:
+	r = r-1
+	else
+	l = l+1
+
+return False
 ```
 
 
