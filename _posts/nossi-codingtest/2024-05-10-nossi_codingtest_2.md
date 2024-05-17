@@ -59,7 +59,7 @@ python에서는 list 자료형을 통해 Dynamic Array를 이미 잘 구현해 �
 
 <br>
 
-### 🔸비교
+#### · 비교
 
 |                 | Static Array | Dynamic Array  |
 | --------------- | ------------ | -------------- |
@@ -71,9 +71,7 @@ python에서는 list 자료형을 통해 Dynamic Array를 이미 잘 구현해 �
 
 <br>
 
-### 🔸[코테 적용] 반복문
-
-#### · Two Sum
+### 🔸[예제] Two Sum
 
 **문제**
 
@@ -103,6 +101,8 @@ output : True
 
 <br>
 
+------
+
 **STEP1. 문제 이해**
 
 $$ O(n \log n) $$, 혹은 이보다 빠른 시간 복잡도가 요구된다.
@@ -123,11 +123,11 @@ $$ O(n \log n) $$, 혹은 이보다 빠른 시간 복잡도가 요구된다.
 
 <br>
 
+#### 1. 반복문
+
 **STEP3. 코드 설계**
 
 완전 탐색으로 진행한다.
-
-
 
 #### · pseudocode
 
@@ -156,21 +156,19 @@ print(twoSum(nums[4,1,9,7,5,3,16], target=14))
 
 ```
 
+<br>
 
-
-### 🔸[코테 적용] Sort & Two Pointer
-
-#### · Two Sum
+#### 2. Sort & Two Pointer
 
 **STEP3. 코드 설계**
 
 Two Pointer로 진행한다. 
 
-Two Pointer는 정렬이 된 상황에서 쓰이므로 우선 정렬이 필요하다.  $$ O(n \log n) $$
+Two Pointer는 정렬이 된 상황에서 쓰이므로 우선 **정렬**이 필요하다.  $$ O(n \log n) $$
 
+<br>
 
-
-#### · pseudocode
+**pseudocode**
 
 ```pseudocode
 nums.sort()
@@ -190,7 +188,7 @@ return False
 
 <br>
 
-#### · code
+**code**
 
 ```python
 def twoSum(nums, target):
@@ -225,77 +223,154 @@ Array List는 python에 이미 있는걸 썼다.
 
 Linked List는 문제에 따라서 내가 어떻게 구현하냐가 중요하다.
 
+<br>
 
-
-#### · Node
+#### · Singly Linked List
 
 ```python
 class Node:
 	def __init__(self, value = 0, next = None):
         self.value = value
         self.next = next
-```
-
-
-
-#### · LinkedList
-
-```python
+        
 class LinkedList(object):
     def __init__(self):
-        self.head = None
-    def append(self, value):
-        pass
-    def get(self, idx):
-        pass
-    def insert(self, idx, value):
-        pass
-    def delete(self, idx):
-        pass
-```
-
-
-
-#### · append
-
-```python
-def append(self, value):
-	new_node = Node(value)
-    if self.head is None:
-        self.head = new_node
-    else:
-        current = self.head;
+        self.size = 0
+        self.head = None        
+    
+    def insert_back(self, value):
+        current = self.head
         while (current.next):
             current = current.next
-        node.next = new_node
+        new_node = Node(value)
+        current.next = new_node
+        
+    def get(self, idx):
+        if idx < 0 || idx >= self.size
+        	raise Exception("out of range")
+        current = self.head
+        for _ in range(idx):
+            current = current.next
+        return current.value
+    
+    def insert(self, idx, value):
+        new_node = Node(value)
+        if idx == 0:
+           	new_node.next = self.head
+            self.head = new_node
+        else:
+            current = self.head
+            for _ in range(idx-1):
+                current = current.next
+            new_node.next = current.next
+            current.next = new_node                
+        
+    def remove(self, idx):
+        if idx == 0:
+            self.head = self.head.next
+        current = self.head
+        for _ in range(idx-1):
+            current = current.next
+        current.next = current.next.next        
+        
+    def print(self):
+        current = self.head
+        while(current):
+            print(current.value, end="")
+            current = current.next
+            if current:
+              print("->", end="")
+        print()      
+        
 ```
 
 
 
-#### · get
+#### Double Linked List
 
 ```python
-def get(self, idx):
-    current = self.head
-    for _ in range(idx) :
-        current = current.next
-    
-    return current
+
 ```
 
+<br>
+
+### 🔸[예제] Design Browser History
+
+<div class="notice">
+    💡 Linked List의 코테 적용 방법<br>
+    	1. Linked List 자유자재로 구현 (선형 자료구조 + 중간에 데이터 추가/삭제 용이)<br>
+    	2. Tree or Graph에 활용
+</div>
 
 
-#### · append
 
+#### · Two Sum
 
+**문제**
 
-#### · append
+인터넷 브라우저에서 방문기록과 동일한 작동을 하는 BrowerHistory Class를 구현한다.
 
+구현할 브라우저는 homepage에서 시작하고, 이후에는 다른 url에 방문할 수 있다.
 
+"뒤로가기"와 "앞으로 가기"가 작동되도록 구현하라.
 
-#### · append
+- BrowserHistory(string homepage)를 호출하면 브라우저는 homepage에서 시작된다.
+- visit(string url)을 호출하면 현재 page의 앞에 있는 페이지 기록은 모두 삭제되고 url로 방문한다.
+- back(int step)을 호출하면 step 만큼 "뒤로가기" 한다. 완료되면 현재 url을 리턴한다.
+- forward(int step)을 호출하면 step만큼 "앞으로 가기"한다. 완료되면 현재 url을 리턴한다.
 
+<br>
 
+**제약 조건**
+
+case1.   &nbsp; &nbsp;   $$ 1 <= homepage.length <= 20 $$
+
+case2.   &nbsp; &nbsp;   $$ 1 <= url.length <= 20 $$
+
+case3.   &nbsp; &nbsp;   $$ 1 <= step <= 100 $$
+
+homepage와 url은 '.'을 포함한 lower case 영어 문자로 구성되어 있다.
+
+visit, back 그리고 forward는 최대 5000번의 호출이 있을 수 있다.
+
+<br>
+
+**예제**
+
+![example]({{site.url}}\images\2024-05-10-nossi_codingtest_2\example.png)
+
+<br>
+
+------
+
+**STEP1. 문제 이해**
+
+- input 값의 특징 (정수인가? 범위는? 마이너스도 되는가? 소수인가? 자료형은 문자열인가? 등)
+- output 값의 특징 (어떤 값을 반환해줘야 하는지, 정해진 형식대로 반환하려면 어떻게 구현할지)
+- input size N 확인 (시간 복잡도를 계산하기 위한 N 또는 M이 무엇인지)
+- 제약 조건 확인 (시간복잡도 제한, 내가 선택할 수 있는 알고리즘이 무엇인지)
+- 예상할 수 있는 오류 파악 (입력값의 범위, stack overflow 등)
+
+<br>
+
+**STEP2. 접근 방법**
+
+- 직관적으로 해석하기
+  - Input, Output을 보자.
+- 자료구조와 알고리즘 활용
+  - **문제 이해**에서 파악한 내용을 토대로 어떤 자료구조를 사용 할지 결정
+  - 대놓고 특정 자료구조와 알고리즘을 묻는 문제도 많음
+- 메모리 사용
+  - 시간 복잡도를 줄이기 위해 메모리를 사용
+  - 대표적으로 해시테이블
+
+<br>
+
+**STEP3. 코드 설계**
+
+완전 탐색으로 진행한다.
+
+<br>
 
 
 ***
