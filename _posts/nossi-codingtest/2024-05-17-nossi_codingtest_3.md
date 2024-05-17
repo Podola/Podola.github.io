@@ -1,5 +1,5 @@
 ---
-title: "[코딩 테스트] 2. List"
+title: "[코딩 테스트] 3. Hash Table"
 
 categories: 
     - 개발남노씨 코딩 테스트
@@ -7,8 +7,9 @@ tag:
     - [python, 코딩 테스트, 알고리즘, 자료구조]
 toc: true
 
-date: 2024-05-10
-last_modified_at: 2024-05-10
+date: 2024-05-17
+last_modified_at: 2024-05-17
+
 
 ---
 
@@ -304,6 +305,7 @@ class LinkedList(object):
 
 
 
+
 #### · Two Sum
 
 **문제**
@@ -356,21 +358,23 @@ visit, back 그리고 forward는 최대 5000번의 호출이 있을 수 있다.
 **STEP2. 접근 방법**
 
 - 직관적으로 해석하기
-  
+
   1. 직관적 해석은 Input, Output을 보는게 가장 좋다.
-  
+
   2. 해당 문제는 앞뒤로 이동하며 순서가 있는 자료구조가 필요하다.
-  
+
   3. Tree나 Graph처럼 여러 갈래로 나뉘거나 계층 구조가 아닌 순서가 있는 선형 자료구조가 필요하다.
-  
+
   4. 중간에 삽입을 용이하게 하려면 Linked List.
-  
+
 - 자료구조와 알고리즘 활용
+
   - **문제 이해**에서 파악한 내용을 토대로 어떤 자료구조를 사용 할지 결정
   - 대놓고 특정 자료구조와 알고리즘을 묻는 문제도 많음
   - Linked List를 사용하면 visit()는 O(1), back()과 forward()는 O(N)
-  
+
 - 메모리 사용
+
   - 시간 복잡도를 줄이기 위해 메모리를 사용
   - 대표적으로 해시테이블
 
@@ -382,7 +386,7 @@ visit, back 그리고 forward는 최대 5000번의 호출이 있을 수 있다.
 
 <br>
 
-**BrowserHistory (Double Linked List)**
+**BrowserHistory**
 
 ```python
 class Node:
@@ -415,52 +419,6 @@ class BrowserHistory:
 ```
 
 <br>
-
-## 3️⃣ Queue
-
-1. 시간 순서상 먼저 저장한 데이터가 먼저 출력되는 FIFO 자료구조이다.
-2. Linked List로 구현.
-3. rear에 데이터를 추가하는 것을 enqueue라고 한다.
-4. front에서 데이터를 꺼내는 것을 dequeue라고 한다.
-5. Queue는 코딩테스트에서 단일로 사용되기보단, 너비우선탐색(BFS)에서 많이 쓰인다.
-
-
-
-```python
-from collections import deque
-queue = deque()
-# enqueue() O(1)
-queue.append(1)
-queue.append(2)
-# dequeue() O(1)
-queue.popleft()
-queue.popleft()
-```
-
-
-
-## 4️⃣ Stack
-
-1. 시간 순서상 마지막에 저장한 데이터가 먼저 출력되는 LIFO 자료구조이다.
-
-2. Array List로 구현.
-3. top에 데이터를 추가하는 것을 push라고 한다.
-4. top에서 데이터를 꺼내는 것을 pop이라고 한다.
-
-3. Stack은 그 자체로도 코딩테스트에 자주 등장한다.
-
-```python
-# stack 선언
-stack = []
-# push O(1)
-stack.append(1)
-stack.append(2)
-#pop() O(1)
-stack.pop()
-stack.pop()
-```
-
-
 
 
 ***
