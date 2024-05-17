@@ -286,14 +286,6 @@ class LinkedList(object):
 
 <br>
 
-**Double Linked List**
-
-```python
-
-```
-
-<br>
-
 ### 🔸[예제] Design Browser History
 
 <div class="notice">
@@ -301,11 +293,6 @@ class LinkedList(object):
     	1. Linked List 자유자재로 구현 (선형 자료구조 + 중간에 데이터 추가/삭제 용이)<br>
     	2. Tree or Graph에 활용
 </div>
-
-
-
-#### · Two Sum
-
 **문제**
 
 인터넷 브라우저에서 방문기록과 동일한 작동을 하는 BrowerHistory Class를 구현한다.
@@ -460,12 +447,150 @@ stack.pop()
 stack.pop()
 ```
 
+<br>
 
+### 🔸[예제] Valid Parentheses(괄호 유효성)
+
+{: .notice--info}
+
+💡 LIFO의 특성을 활용한 문제
+
+<br>
+
+**문제**
+
+'() {} []' 를 포함하고 있는 문자열 s가 주어졌을 때, 괄호가 유효한지 판별하시오.
+
+<br>
+
+**제약 조건**
+
+case1.   &nbsp; &nbsp;   $$ 1 <= s.length <= 10 ^4 $$
+
+문자열 s는 '()[]{}'의 괄호로만 구성되어 있다.
+
+<br>
 
 
 ***
 
+**문제 이해**
+
+1. s의 길이는 짝수
+2. 여는 괄호가 먼저
+3. 여는 괄호마다 +1, 닫는 괄호마다 -1
+4. 음수가 나오면, 닫는 괄호가 먼저 나온 case
+5. 최종 값이 0이 아니면 짝이 안맞음
+6. 괄호 종류에 따라서 숫자 부여.
+7. 마지막에 열린 괄호에 먼저 닫혀야 함(LIFO)
+
+
+
+**pseudocode**
+
+```pseudocode
+s = (({[]}()[[]]))
+for _ in s
+	if '({['
+		stack.push()
+	if ')}]'
+		짝이 맞으면 stack.pop()
+		아니면 return False
+		
+if stack.isEmpty()
+	return True
+else
+	return False
+```
+
 <br>
+
+**code**
+
+```python
+def isValid(s):
+    stack = []
+    for p in s:
+        if p == "(":
+            stack.append(")")
+        elif p == "{":
+            stack.append("}")
+        elif p == "[":
+            stack.append("]")
+        else
+        	not stack or stack.pop() != p:
+                return False
+    
+   	return not stack
+            
+```
+
+<br>
+
+### 🔸[예제] Daily Temperatures
+
+{: .notice--info}
+
+💡 LIFO의 특성을 활용한 문제
+
+<br>
+
+**문제**
+
+매일의 온도를 나타내는 int형 배열 temperatures가 주어진다. answer 배열의 원소 answer[i]는 i번 째 날의 온도보다 더 따뜻해지기 까지 며칠을 기다려야 하는지 나타낸다. 만약 더 따뜻해지는 날이 없다면 answer[i]는 0이다. answer 배열을 반환하는 함수를 구현하시오.
+
+<br>
+
+**제약 조건**
+
+case1.   &nbsp; &nbsp;   $$ 1 <= temperatures.length <= 10 ^5 $$
+
+case2.   &nbsp; &nbsp;   $$ 30 <= temperatures[i] <= 100 $$
+
+
+
+**예시**
+
+input : temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+
+output : [1, 1, 4, 2, 1, 1, 0, 0]
+
+<br>
+
+
+***
+
+**접근 방법**
+
+제약 조건 case1로 인해 완전탐색은 불가능.
+
+몇번째 날인지 순서가 중요하므로 정렬도 불가능.
+
+
+
+
+
+<br>
+
+**pseudocode**
+
+```pseudocode
+
+```
+
+<br>
+
+**code**
+
+```python
+
+```
+
+
+
+------
+
+
 
     이 글은 개발남노씨님의 인프런 강의 코딩테스트 [ALL IN ONE]을 정리하여 작성했습니다.
     잘못된 내용이 있을 경우 메일로 지적바랍니다!😄
