@@ -86,11 +86,10 @@ nums의 원소 중 두 숫자를 더해서 target이 될 수 있으면 True, 불
 
 **제약 조건**
 
-case1.   &nbsp; &nbsp;   $$ 2 <= nums.length <= 10^4 $$
+1. $$ 2 <= nums.length <= 10^4 $$
 
-case2. $$ -10^9 <= nums[i] <= 10^9 $$
-
-case3. $$ -10^9 <= target <= 10^9 $$ 
+2.  $$ -10^9 <= nums[i] <= 10^9 $$
+3.  $$ -10^9 <= target <= 10^9 $$ 
 
 <br>
 
@@ -325,11 +324,9 @@ class LinkedList(object):
 
 **제약 조건**
 
-case1.   &nbsp; &nbsp;   $$ 1 <= homepage.length <= 20 $$
-
-case2.   &nbsp; &nbsp;   $$ 1 <= url.length <= 20 $$
-
-case3.   &nbsp; &nbsp;   $$ 1 <= step <= 100 $$
+1. $$ 1 <= homepage.length <= 20 $$
+2.  $$ 1 <= url.length <= 20 $$
+3.  $$ 1 <= step <= 100 $$
 
 homepage와 url은 '.'을 포함한 lower case 영어 문자로 구성되어 있다.
 

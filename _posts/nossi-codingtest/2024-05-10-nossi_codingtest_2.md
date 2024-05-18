@@ -85,11 +85,9 @@ nums의 원소 중 두 숫자를 더해서 target이 될 수 있으면 True, 불
 
 **제약 조건**
 
-case1.   &nbsp; &nbsp;   $$ 2 <= nums.length <= 10^4 $$
-
-case2. $$ -10^9 <= nums[i] <= 10^9 $$
-
-case3. $$ -10^9 <= target <= 10^9 $$ 
+1.  $$ 2 <= nums.length <= 10^4 $$
+2.  $$ -10^9 <= nums[i] <= 10^9 $$
+3.  $$ -10^9 <= target <= 10^9 $$ 
 
 <br>
 
@@ -310,11 +308,9 @@ class LinkedList(object):
 
 **제약 조건**
 
-case1.   &nbsp; &nbsp;   $$ 1 <= homepage.length <= 20 $$
-
-case2.   &nbsp; &nbsp;   $$ 1 <= url.length <= 20 $$
-
-case3.   &nbsp; &nbsp;   $$ 1 <= step <= 100 $$
+1.  $$ 1 <= homepage.length <= 20 $$
+2.  $$ 1 <= url.length <= 20 $$
+3.  $$ 1 <= step <= 100 $$
 
 homepage와 url은 '.'을 포함한 lower case 영어 문자로 구성되어 있다.
 
@@ -465,7 +461,7 @@ stack.pop()
 
 **제약 조건**
 
-case1.   &nbsp; &nbsp;   $$ 1 <= s.length <= 10 ^4 $$
+1.  $$ 1 <= s.length <= 10 ^4 $$
 
 문자열 s는 '()[]{}'의 괄호로만 구성되어 있다.
 
@@ -543,9 +539,8 @@ def isValid(s):
 
 **제약 조건**
 
-case1.   &nbsp; &nbsp;   $$ 1 <= temperatures.length <= 10 ^5 $$
-
-case2.   &nbsp; &nbsp;   $$ 30 <= temperatures[i] <= 100 $$
+1.  $$ 1 <= temperatures.length <= 10 ^5 $$
+2.  $$ 30 <= temperatures[i] <= 100 $$
 
 
 
@@ -562,28 +557,28 @@ output : [1, 1, 4, 2, 1, 1, 0, 0]
 
 **접근 방법**
 
-제약 조건 case1로 인해 완전탐색은 불가능.
+조건1로 인해 완전탐색은 불가능.
 
 몇번째 날인지 순서가 중요하므로 정렬도 불가능.
 
+더 높은 온도가 나올때까지 push
 
-
-
-
-<br>
-
-**pseudocode**
-
-```pseudocode
-
-```
+Stack을 이용하면 시간 복잡도 O(N)으로 풀 수 있다.
 
 <br>
 
 **code**
 
 ```python
-
+def dailyTemperatures(temperatures):
+    ans = [0] * len(temperatures)
+    stack = []
+    for curr_day, temp in enumerate(temperatures):
+        while stack and stack[-1][1] < temp:
+            prev_day, _ = stack.pop()
+            ans[prev_day] = cur_day - prev_day
+        stack.append((cur_day, cur_temp))
+   	return ans
 ```
 
 
