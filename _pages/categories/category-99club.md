@@ -1,5 +1,5 @@
 ---
-title: "프로그래머스"
+title: "99club"
 layout: archive
 permalink: categories/99club
 author_profile: true
